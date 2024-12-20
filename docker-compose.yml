@@ -1,0 +1,46 @@
+services:
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    restart: always
+    #env_file:
+    # - variables.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./backend/.env
+    environment:
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - DB_ADDRESS=db:3306
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      - "3000:3000"
+    tty: true
+    stdin_open: true
+
+volumes:
+  db_data:
