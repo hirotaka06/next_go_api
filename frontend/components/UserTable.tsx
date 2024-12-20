@@ -143,12 +143,15 @@ export default function UserTable() {
                   </div>
                   <button
                     onClick={createUser}
-                    className="bg-primary text-primary-foreground p-2 rounded-lg shadow-md hover:bg-primary/90 transition mt-4 w-24 rainbow-text"
+                    className="group bg-primary text-primary-foreground p-2 rounded-lg shadow-md hover:bg-primary/90 transition mt-4 w-24"
                   >
-                    Create
+                    <span className="group-hover:animate-rainbow">Create</span>
                   </button>
                   <button
-                    onClick={() => setShowForm(false)}
+                    onClick={() => {
+                      setShowForm(false);
+                      setErrorMessage("");
+                    }}
                     className="bg-black text-white p-2 rounded-lg shadow-md hover:bg-gray-600 transition mt-4 ml-2 w-24"
                   >
                     Cancel
@@ -157,7 +160,7 @@ export default function UserTable() {
               </div>
             )}
             {errorMessage && (
-              <p className="text-red-500 text-xs mb-2">{errorMessage}</p>
+              <p className="text-red-500 text-xs mb-4 mt-0">{errorMessage}</p>
             )}
             <Table>
               <TableHeader>
@@ -213,7 +216,7 @@ export default function UserTable() {
                     </TableCell>
                     <TableCell>
                       <button
-                        className="text-muted-foreground hover:text-blue-500 transition-colors focus:outline-none rounded p-1"
+                        className="text-muted-foreground hover:text-blue-500 transition-colors focus:outline-none rounded p-1 ml-2"
                         onClick={() => {
                           setEditingUserId(user.ID);
                           setEditedName(user.Name);
@@ -224,7 +227,7 @@ export default function UserTable() {
                     </TableCell>
                     <TableCell>
                       <button
-                        className="text-muted-foreground hover:text-red-500 transition-colors focus:outline-none rounded p-1"
+                        className="text-muted-foreground hover:text-red-500 transition-colors focus:outline-none rounded p-1 ml-4"
                         onClick={() => deleteUser(user.ID)}
                       >
                         <Trash2 size={16} />
@@ -237,32 +240,6 @@ export default function UserTable() {
           </div>
         </div>
       </div>
-      <style jsx>{`
-        @keyframes rainbow {
-          0% {
-            color: red;
-          }
-          20% {
-            color: orange;
-          }
-          40% {
-            color: orange;
-          }
-          60% {
-            color: green;
-          }
-          80% {
-            color: blue;
-          }
-          100% {
-            color: violet;
-          }
-        }
-
-        .rainbow-text:hover {
-          animation: rainbow 1s linear forwards;
-        }
-      `}</style>
     </div>
   );
 }

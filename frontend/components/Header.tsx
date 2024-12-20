@@ -9,7 +9,7 @@ export default function Header() {
             {/* Logo */}
             <div>
               <Link
-                href="https://github.com/hirotaka06"
+                href="https://github.com/hirotaka06/next_go_api"
                 className="text-2xl font-bold text-blue-800"
                 style={{ fontFamily: "Rubik Iso, sans-serif" }}
               >

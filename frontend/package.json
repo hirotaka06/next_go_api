@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/react-toastify": "^4.1.0",
+    "framer-motion": "^11.15.0",
     "lucide-react": "^0.468.0",
     "next": "15.1.1",
     "react": "^19.0.0",
